@@ -1,0 +1,1324 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap');
+
+  :root {
+    --saffron: #C8622A;
+    --saffron-light: #F5EDE5;
+    --saffron-mid: #E89060;
+    --sage: #4A6741;
+    --sage-light: #EBF0E8;
+    --ivory: #FAF7F2;
+    --ink: #1E1A14;
+    --ink-mid: #4A4236;
+    --ink-light: #8A7D6E;
+    --gold: #B8902A;
+    --gold-light: #FAF3E0;
+    --divider: rgba(30,26,20,0.1);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body, .doc-root {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--ivory);
+    color: var(--ink);
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .doc-root {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 0 60px;
+  }
+
+  /* COVER */
+  .cover {
+    background: var(--ink);
+    color: white;
+    padding: 56px 52px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 320px; height: 320px;
+    border: 1px solid rgba(200,98,42,0.3);
+    border-radius: 50%;
+  }
+  .cover::after {
+    content: '';
+    position: absolute;
+    top: -20px; right: -20px;
+    width: 180px; height: 180px;
+    border: 1px solid rgba(200,98,42,0.15);
+    border-radius: 50%;
+  }
+  .cover-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--saffron-mid);
+    margin-bottom: 20px;
+  }
+  .cover-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    font-weight: 600;
+    line-height: 1.12;
+    color: white;
+    margin-bottom: 6px;
+  }
+  .cover-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-style: italic;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 32px;
+  }
+  .cover-meta {
+    display: flex;
+    gap: 32px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 24px;
+  }
+  .cover-meta-item label {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .cover-meta-item span {
+    font-size: 13px;
+    color: rgba(255,255,255,0.8);
+  }
+  .cover-quote {
+    margin-top: 32px;
+    padding-left: 16px;
+    border-left: 2px solid var(--saffron);
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.6;
+  }
+
+  /* NAV TABS */
+  .nav-tabs {
+    display: flex;
+    background: white;
+    border-bottom: 1px solid var(--divider);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .nav-tabs::-webkit-scrollbar { display: none; }
+  .nav-tab {
+    padding: 14px 20px;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: var(--ink-light);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: all 0.2s;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .nav-tab:hover { color: var(--saffron); }
+  .nav-tab.active { color: var(--saffron); border-bottom-color: var(--saffron); font-weight: 500; }
+
+  /* SECTIONS */
+  .section {
+    padding: 48px 52px;
+    border-bottom: 1px solid var(--divider);
+    display: none;
+  }
+  .section.active { display: block; }
+
+  .section-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--saffron);
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 34px;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.2;
+    margin-bottom: 28px;
+  }
+  .section-lead {
+    font-size: 15px;
+    color: var(--ink-mid);
+    line-height: 1.8;
+    margin-bottom: 28px;
+    max-width: 640px;
+  }
+
+  /* CARDS */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+  }
+  .card {
+    background: white;
+    border: 1px solid var(--divider);
+    border-radius: 10px;
+    padding: 20px;
+  }
+  .card-icon {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+  .card-icon.saffron { background: var(--saffron-light); color: var(--saffron); }
+  .card-icon.sage { background: var(--sage-light); color: var(--sage); }
+  .card-icon.gold { background: var(--gold-light); color: var(--gold); }
+  .card-label {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 6px;
+  }
+  .card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--ink);
+  }
+  .card-body {
+    font-size: 13px;
+    color: var(--ink-mid);
+    line-height: 1.65;
+  }
+
+  /* QUOTE BLOCK */
+  .quote-block {
+    background: var(--saffron-light);
+    border-left: 3px solid var(--saffron);
+    padding: 20px 24px;
+    border-radius: 0 8px 8px 0;
+    margin: 24px 0;
+  }
+  .quote-block p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    font-style: italic;
+    color: var(--ink);
+    line-height: 1.7;
+    margin-bottom: 8px;
+  }
+  .quote-block cite {
+    font-size: 12px;
+    color: var(--saffron);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* PILLAR BLOCKS */
+  .pillar {
+    display: flex;
+    gap: 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--divider);
+  }
+  .pillar:last-child { border-bottom: none; }
+  .pillar-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 500;
+    color: var(--saffron-mid);
+    min-width: 44px;
+    line-height: 1;
+    padding-top: 4px;
+  }
+  .pillar-content h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .pillar-content p { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+  .pillar-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .tag {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: var(--ivory);
+    border: 1px solid var(--divider);
+    color: var(--ink-mid);
+  }
+  .tag.saffron { background: var(--saffron-light); border-color: rgba(200,98,42,0.2); color: var(--saffron); }
+  .tag.sage { background: var(--sage-light); border-color: rgba(74,103,65,0.2); color: var(--sage); }
+  .tag.gold { background: var(--gold-light); border-color: rgba(184,144,42,0.25); color: var(--gold); }
+
+  /* AUDIENCE TABLE */
+  .audience-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 20px;
+  }
+  .audience-card {
+    background: white;
+    border: 1px solid var(--divider);
+    border-radius: 8px;
+    padding: 16px 18px;
+  }
+  .audience-card h4 {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .audience-card h4 i { font-size: 15px; color: var(--saffron); }
+  .audience-card ul {
+    list-style: none;
+    font-size: 12px;
+    color: var(--ink-mid);
+    line-height: 1.9;
+  }
+  .audience-card ul li::before { content: '— '; color: var(--saffron-mid); }
+
+  /* BIO BLOCK */
+  .bio-platform {
+    background: white;
+    border: 1px solid var(--divider);
+    border-radius: 10px;
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+  .bio-platform-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--divider);
+  }
+  .platform-icon {
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+  .platform-icon.ig { background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); color: white; }
+  .platform-icon.fb { background: #1877F2; color: white; }
+  .bio-platform-name { font-weight: 500; font-size: 14px; }
+  .bio-platform-handle { font-size: 12px; color: var(--ink-light); }
+  .bio-text {
+    font-size: 13px;
+    line-height: 1.8;
+    color: var(--ink);
+    background: var(--ivory);
+    padding: 14px 16px;
+    border-radius: 8px;
+    white-space: pre-line;
+  }
+  .bio-char-count { font-size: 11px; color: var(--ink-light); text-align: right; margin-top: 8px; }
+
+  /* CALENDAR */
+  .month-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    margin-top: 32px;
+  }
+  .month-badge {
+    background: var(--ink);
+    color: white;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .month-line { flex: 1; height: 1px; background: var(--divider); }
+
+  .cal-post {
+    display: grid;
+    grid-template-columns: 48px 1fr auto;
+    gap: 16px;
+    align-items: start;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--divider);
+  }
+  .cal-post:last-child { border-bottom: none; }
+  .post-week {
+    text-align: center;
+  }
+  .post-week-label {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+  }
+  .post-week-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .post-content h4 {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .post-content p {
+    font-size: 12px;
+    color: var(--ink-mid);
+    line-height: 1.6;
+    margin-bottom: 8px;
+  }
+  .post-meta { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .format-badge {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .format-reel { background: #fce8f3; color: #9c2777; }
+  .format-static { background: var(--sage-light); color: var(--sage); }
+  .format-carousel { background: var(--gold-light); color: #7a5c10; }
+  .pillar-badge {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: var(--saffron-light);
+    color: var(--saffron);
+    border: 1px solid rgba(200,98,42,0.2);
+  }
+  .platform-pills { display: flex; gap: 4px; }
+  .platform-pill {
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 4px;
+    background: var(--ivory);
+    border: 1px solid var(--divider);
+    color: var(--ink-light);
+  }
+
+  /* KEYWORDS */
+  .keyword-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+  }
+  .keyword {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    border: 1px solid;
+  }
+  .keyword.primary { background: var(--saffron-light); border-color: rgba(200,98,42,0.25); color: var(--saffron); font-weight: 500; }
+  .keyword.secondary { background: var(--sage-light); border-color: rgba(74,103,65,0.25); color: var(--sage); }
+  .keyword.tertiary { background: var(--gold-light); border-color: rgba(184,144,42,0.25); color: var(--gold); }
+  .keyword.neutral { background: white; border-color: var(--divider); color: var(--ink-mid); }
+
+  /* STORY */
+  .story-timeline {
+    position: relative;
+    padding-left: 32px;
+    margin-top: 8px;
+  }
+  .story-timeline::before {
+    content: '';
+    position: absolute;
+    left: 10px; top: 8px; bottom: 8px;
+    width: 1px;
+    background: var(--divider);
+  }
+  .story-node {
+    position: relative;
+    padding-bottom: 28px;
+  }
+  .story-node::before {
+    content: '';
+    position: absolute;
+    left: -26px; top: 7px;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--saffron);
+    border: 2px solid var(--ivory);
+  }
+  .story-node:last-child { padding-bottom: 0; }
+  .story-node h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--ink);
+  }
+  .story-node p { font-size: 13px; color: var(--ink-mid); line-height: 1.7; }
+
+  /* RESOURCES */
+  .resource-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .resource-item {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 12px;
+    background: white;
+    border: 1px solid var(--divider);
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--ink-mid);
+  }
+  .resource-item i { color: var(--saffron); font-size: 15px; margin-top: 1px; flex-shrink: 0; }
+
+  /* TONE */
+  .tone-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+  .tone-card {
+    padding: 16px;
+    border-radius: 8px;
+    font-size: 12px;
+  }
+  .tone-card.do { background: var(--sage-light); }
+  .tone-card.dont { background: #fef2f2; }
+  .tone-card h4 { font-size: 12px; font-weight: 500; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.1em; }
+  .tone-card.do h4 { color: var(--sage); }
+  .tone-card.dont h4 { color: #b91c1c; }
+  .tone-card ul { list-style: none; line-height: 2; color: var(--ink-mid); }
+  .tone-card.do ul li::before { content: '✓ '; color: var(--sage); }
+  .tone-card.dont ul li::before { content: '✕ '; color: #b91c1c; }
+
+  hr.section-hr { border: none; border-top: 1px solid var(--divider); margin: 28px 0; }
+
+  h3.sub { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: var(--ink); margin: 24px 0 12px; }
+  p.body { font-size: 13px; color: var(--ink-mid); line-height: 1.75; margin-bottom: 12px; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+</style>
+
+<div class="doc-root">
+  <div class="cover">
+    <div class="cover-eyebrow">Brand Strategy & Social Media Playbook · June 2026</div>
+    <div class="cover-title">SAFIER</div>
+    <div class="cover-subtitle">Sri Aurobindo Foundation for Integral Education & Research</div>
+    <div class="cover-quote">
+      "The education of a human being should begin at birth and continue throughout his life."<br>
+      <cite>— The Mother</cite>
+    </div>
+    <div class="cover-meta">
+      <div class="cover-meta-item"><label>Parent Body</label><span>Sri Aurobindo Society, Puducherry</span></div>
+      <div class="cover-meta-item"><label>Platforms</label><span>Facebook · Instagram</span></div>
+      <div class="cover-meta-item"><label>Period</label><span>June – July 2026</span></div>
+      <div class="cover-meta-item"><label>Document</label><span>One-Pager Brand Strategy</span></div>
+    </div>
+  </div>
+
+  <nav class="nav-tabs" id="nav">
+    <button class="nav-tab active" onclick="show('brand')">Brand Identity</button>
+    <button class="nav-tab" onclick="show('story')">Brand Story</button>
+    <button class="nav-tab" onclick="show('audience')">Audience</button>
+    <button class="nav-tab" onclick="show('pillars')">Content Pillars</button>
+    <button class="nav-tab" onclick="show('bios')">Page Bios</button>
+    <button class="nav-tab" onclick="show('keywords')">Keywords</button>
+    <button class="nav-tab" onclick="show('calendar')">Calendar</button>
+    <button class="nav-tab" onclick="show('resources')">Resources</button>
+  </nav>
+
+  <!-- BRAND IDENTITY -->
+  <section class="section active" id="brand">
+    <div class="section-eyebrow">01 · Brand Identity</div>
+    <div class="section-title">Who SAFIER Is</div>
+    <div class="section-lead">SAFIER is the educational arm of the Sri Aurobindo Society — one of India's most revered spiritual-educational institutions, founded directly under the guidance of The Mother. SAFIER brings the timeless philosophy of Integral Education from Puducherry into schools, homes, and communities across India and the world.</div>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon saffron"><i class="ti ti-eye" aria-hidden="true"></i></div>
+        <div class="card-label">Vision</div>
+        <div class="card-title">Highest Potential for All</div>
+        <div class="card-body">An Integral Education that enables every individual, institution, and nation to realise their highest potential — guided by Sri Aurobindo and The Mother's teachings.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon sage"><i class="ti ti-flame" aria-hidden="true"></i></div>
+        <div class="card-label">Mission</div>
+        <div class="card-title">Transform Teaching & Learning</div>
+        <div class="card-body">Invite educators, parents, and changemakers to reimagine education through Integral Education — nurturing inner growth that transforms classrooms and communities.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon gold"><i class="ti ti-sparkles" aria-hidden="true"></i></div>
+        <div class="card-label">Positioning</div>
+        <div class="card-title">Ancient Wisdom. Living Practice.</div>
+        <div class="card-body">The only education movement rooted in Sri Aurobindo's Integral Yoga — backed by 100+ years of practice, the Mother's direct instructions, and the authenticity of Sri Aurobindo Society.</div>
+      </div>
+    </div>
+
+    <hr class="section-hr">
+    <h3 class="sub">Brand Essence</h3>
+    <div class="quote-block">
+      <p>"A new education for a new future"</p>
+      <cite>SAFIER's Core Tagline</cite>
+    </div>
+
+    <div class="two-col" style="margin-top:20px;">
+      <div>
+        <h3 class="sub" style="margin-top:0;">Brand Personality</h3>
+        <div class="pillar-tags">
+          <span class="tag saffron">Spiritually Rooted</span>
+          <span class="tag sage">Warmly Human</span>
+          <span class="tag gold">Authentically Ancient</span>
+          <span class="tag">Practically Transformative</span>
+          <span class="tag">Quietly Confident</span>
+          <span class="tag saffron">Conscious & Evolving</span>
+        </div>
+      </div>
+      <div>
+        <h3 class="sub" style="margin-top:0;">Brand Voice</h3>
+        <div class="pillar-tags">
+          <span class="tag">Warm not Preachy</span>
+          <span class="tag sage">Deep not Dense</span>
+          <span class="tag">Inviting not Exclusive</span>
+          <span class="tag saffron">Inspiring not Motivational-Speak</span>
+        </div>
+      </div>
+    </div>
+
+    <hr class="section-hr">
+    <h3 class="sub">Visual Identity Direction</h3>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-label">Colours</div>
+        <div class="card-title">Saffron · Sage · Ivory · Deep Ink</div>
+        <div class="card-body">Saffron (consciousness, warmth, the Mother's love). Sage green (nature, growth, the body's vitality). Ivory (purity, space, the calm of inner focus). Deep ink (authority, depth, the written wisdom of Sri Aurobindo).</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Typography</div>
+        <div class="card-title">Serif Wisdom + Clean Body</div>
+        <div class="card-body">Use a serif typeface for quotes, titles, and moments of depth (Cormorant, EB Garamond). Pair with a clean sans-serif for captions and body text. Never bold generic fonts.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Photography</div>
+        <div class="card-title">Warm, Natural, Unfiltered</div>
+        <div class="card-body">Camp activities in natural light. Children's faces mid-discovery. Teachers in quiet reflection. Nature details — trees, hands, feet on earth. Avoid stock images and posed perfection.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Design Feel</div>
+        <div class="card-title">Contemplative, Not Clinical</div>
+        <div class="card-body">Generous whitespace. Organic compositions. Textures that feel like handmade paper or worn cloth. Quote overlays on photography. Mandalic or natural geometry as motifs.</div>
+      </div>
+    </div>
+
+    <hr class="section-hr">
+    <div class="tone-grid">
+      <div class="tone-card do">
+        <h4>Tone — Do</h4>
+        <ul>
+          <li>Speak with reverence and warmth</li>
+          <li>Use The Mother's quotes as anchors</li>
+          <li>Share transformation, not performance</li>
+          <li>Invite, never preach</li>
+          <li>Celebrate inner growth quietly</li>
+        </ul>
+      </div>
+      <div class="tone-card dont">
+        <h4>Tone — Don't</h4>
+        <ul>
+          <li>Use corporate education jargon</li>
+          <li>Post generic "motivational" graphics</li>
+          <li>Overclaim or compare to other orgs</li>
+          <li>Reduce Integral Education to a curriculum</li>
+          <li>Use aggressive call-to-action language</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- BRAND STORY -->
+  <section class="section" id="story">
+    <div class="section-eyebrow">02 · Brand Story</div>
+    <div class="section-title">A Century of Wisdom.<br>A Living Mission.</div>
+    <div class="section-lead">SAFIER does not begin with a board meeting or a marketing plan. It begins in Puducherry, in the first half of the 20th century, when two extraordinary seers — Sri Aurobindo and The Mother — envisioned an education that was not merely about knowledge, but about the complete unfoldment of the human being.</div>
+
+    <div class="story-timeline">
+      <div class="story-node">
+        <h4>The Vision is Born in Puducherry</h4>
+        <p>Sri Aurobindo and The Mother conceived Integral Education as a path of conscious evolution — nurturing the physical, vital, mental, psychic, and spiritual dimensions of every child. In 1943, The Mother founded the Sri Aurobindo International Centre of Education in Pondicherry as a living laboratory of this vision.</p>
+      </div>
+      <div class="story-node">
+        <h4>Sri Aurobindo Society Carries the Flame</h4>
+        <p>The Sri Aurobindo Society, formed under The Mother's direct guidance, became the organisational body tasked with spreading this light beyond Puducherry. For decades, it has carried the authentic lineage of Integral Education — not as theory, but as lived practice.</p>
+      </div>
+      <div class="story-node">
+        <h4>SAFIER: Bringing IE Into the World</h4>
+        <p>SAFIER — the Sri Aurobindo Foundation for Integral Education and Research — was born from the need to make this wisdom accessible to educators, schools, parents, and children across India and beyond. It became the bridge between ancient insight and modern classrooms.</p>
+      </div>
+      <div class="story-node">
+        <h4>Annual Workshops, Children's Camps, School Partnerships</h4>
+        <p>Through annual Integral Education Workshops for teachers and principals, transformative Children's Camps, and school implementation programs, SAFIER creates direct encounters with a different kind of education — one where the inner life of the child is honoured as much as academics.</p>
+      </div>
+      <div class="story-node">
+        <h4>The Call Continues — Join the Great Adventure</h4>
+        <p>As The Mother said: "I invite you to the great adventure." SAFIER now invites a new generation of educators, parents, and changemakers to discover that the most powerful thing we can do for a child is nurture their inner being. The journey continues — and there is room for you.</p>
+      </div>
+    </div>
+
+    <div class="quote-block" style="margin-top:36px;">
+      <p>"There is a genius within every one of us."</p>
+      <cite>— The Mother · The foundation of SAFIER's belief in every child</cite>
+    </div>
+  </section>
+
+  <!-- AUDIENCE -->
+  <section class="section" id="audience">
+    <div class="section-eyebrow">03 · Target Audience</div>
+    <div class="section-title">Who We Speak To</div>
+    <div class="section-lead">SAFIER's audience spans the full ecology of education — from those who shape policy to those who shape children each morning in a classroom. We speak to seekers of a more conscious future.</div>
+
+    <div class="audience-grid">
+      <div class="audience-card">
+        <h4><i class="ti ti-school" aria-hidden="true"></i> Educators & Teachers</h4>
+        <ul>
+          <li>School teachers (all levels)</li>
+          <li>College & university faculty</li>
+          <li>Special educators & counsellors</li>
+          <li>Montessori & alternative educators</li>
+          <li>Teacher trainers & mentors</li>
+        </ul>
+      </div>
+      <div class="audience-card">
+        <h4><i class="ti ti-building" aria-hidden="true"></i> School Leadership</h4>
+        <ul>
+          <li>Principals & vice-principals</li>
+          <li>School trustees & board members</li>
+          <li>Education administrators</li>
+          <li>Academic directors</li>
+          <li>School founders & managers</li>
+        </ul>
+      </div>
+      <div class="audience-card">
+        <h4><i class="ti ti-heart" aria-hidden="true"></i> Parents & Families</h4>
+        <ul>
+          <li>Parents seeking conscious parenting</li>
+          <li>Homeschooling parents</li>
+          <li>Parents of school-going children</li>
+          <li>Joint families with children</li>
+          <li>Parents interested in spirituality</li>
+        </ul>
+      </div>
+      <div class="audience-card">
+        <h4><i class="ti ti-books" aria-hidden="true"></i> Education Policymakers</h4>
+        <ul>
+          <li>Government education departments</li>
+          <li>NEP implementation bodies</li>
+          <li>NGOs in the education sector</li>
+          <li>Education researchers & academics</li>
+          <li>International education bodies</li>
+        </ul>
+      </div>
+      <div class="audience-card">
+        <h4><i class="ti ti-plant" aria-hidden="true"></i> Spiritual Community</h4>
+        <ul>
+          <li>Sri Aurobindo Society members</li>
+          <li>Auroville residents & followers</li>
+          <li>Integral Yoga practitioners</li>
+          <li>Vedantic / yogic study circles</li>
+          <li>Conscious living seekers</li>
+        </ul>
+      </div>
+      <div class="audience-card">
+        <h4><i class="ti ti-user" aria-hidden="true"></i> Young Adults & Students</h4>
+        <ul>
+          <li>College students (18–25)</li>
+          <li>Graduate students of education</li>
+          <li>Youth seeking purpose & direction</li>
+          <li>Young camp alumni networks</li>
+          <li>Aspiring teachers & volunteers</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="section-hr">
+    <h3 class="sub">Primary Audience for Social Media Focus</h3>
+    <p class="body">For the next 2 months, the core social media audience should be <strong>educators (teachers & principals)</strong> and <strong>conscious parents</strong> — people who are actively engaged in a child's world and are open to a different approach. Secondary focus: young adults who may volunteer, attend camps, or carry Integral Education into their professional lives.</p>
+
+    <div class="card-grid" style="margin-top:16px;">
+      <div class="card">
+        <div class="card-label">Pain Point — Educators</div>
+        <div class="card-title">Burnt out, disillusioned</div>
+        <div class="card-body">Feeling that mainstream education misses the soul of the child. Seeking meaning in teaching. Drawn to something deeper than curricula and assessments.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Pain Point — Parents</div>
+        <div class="card-title">Anxious, searching</div>
+        <div class="card-body">Worried that schools are not nurturing their child's full self. Seeking a more wholesome approach to their child's growth — one that includes inner development.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Pain Point — Young Adults</div>
+        <div class="card-title">Purposeless, directionless</div>
+        <div class="card-body">Looking for meaning beyond career success. Curious about consciousness, inner work, and how they might contribute to a better world through education.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTENT PILLARS -->
+  <section class="section" id="pillars">
+    <div class="section-eyebrow">04 · Content Pillars</div>
+    <div class="section-title">What We Talk About</div>
+    <div class="section-lead">Six content pillars anchor all SAFIER social media content — each rooted in Integral Education, each speaking to a different facet of the audience's world.</div>
+
+    <div class="pillar">
+      <div class="pillar-num">01</div>
+      <div class="pillar-content">
+        <h3>The Wisdom of Integral Education</h3>
+        <p>The philosophical and spiritual core of what SAFIER does — drawn from The Mother and Sri Aurobindo's writings, talks by IE practitioners, and the glossary of key concepts. This pillar educates the audience about what IE actually is and why it is different from mainstream education.</p>
+        <div class="pillar-tags">
+          <span class="tag saffron">Quotes from The Mother</span>
+          <span class="tag saffron">IE Concept Explainers</span>
+          <span class="tag saffron">Sri Aurobindo on Education</span>
+          <span class="tag saffron">5 Aspects of Being (physical, vital, mental, psychic, spiritual)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="pillar">
+      <div class="pillar-num">02</div>
+      <div class="pillar-content">
+        <h3>The Transformed Educator</h3>
+        <p>Content that speaks to teachers and school leaders — about what it means to be a conscious educator. Testimonials, workshop highlights, reflections from teachers who attended SAFIER programs. Positions teaching as a sacred vocation.</p>
+        <div class="pillar-tags">
+          <span class="tag sage">Teacher Testimonials</span>
+          <span class="tag sage">Workshop Snapshots</span>
+          <span class="tag sage">Day in a SAFIER Camp</span>
+          <span class="tag sage">Conscious Classroom Tips</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="pillar">
+      <div class="pillar-num">03</div>
+      <div class="pillar-content">
+        <h3>The Awakened Child</h3>
+        <p>Stories, activities, and moments from Children's Camps that show what an Integral Education experience looks like in real life. Joyful, natural, exploratory content that resonates deeply with parents and educators alike.</p>
+        <div class="pillar-tags">
+          <span class="tag gold">Camp Activity Videos</span>
+          <span class="tag gold">Children's Expressions</span>
+          <span class="tag gold">Nature-Based Learning Moments</span>
+          <span class="tag gold">Art, Music, Movement in IE</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="pillar">
+      <div class="pillar-num">04</div>
+      <div class="pillar-content">
+        <h3>The Science of Living</h3>
+        <p>The Mother's concept of "The Science of Living" as a practical guide for daily life — posture, food, relationships, rest, and inner work. This pillar makes IE feel relevant and immediately applicable, especially for parents and young adults.</p>
+        <div class="pillar-tags">
+          <span class="tag">Physical Education in IE</span>
+          <span class="tag">Concentration & Stillness Practices</span>
+          <span class="tag">Conscious Habits for Children</span>
+          <span class="tag">Body as a Sacred Instrument</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="pillar">
+      <div class="pillar-num">05</div>
+      <div class="pillar-content">
+        <h3>The Lineage & The Legacy</h3>
+        <p>Content honouring Sri Aurobindo and The Mother — their life, their vision, their words on education. This pillar builds the credibility and authenticity of SAFIER's work and roots the social media presence in the original source.</p>
+        <div class="pillar-tags">
+          <span class="tag saffron">Sri Aurobindo's life & teachings</span>
+          <span class="tag saffron">The Mother's vision</span>
+          <span class="tag saffron">History of IE</span>
+          <span class="tag saffron">Sri Aurobindo Society's work</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="pillar">
+      <div class="pillar-num">06</div>
+      <div class="pillar-content">
+        <h3>Join the Great Adventure</h3>
+        <p>Community-building content — event announcements, camp registrations, volunteer invitations, collaboration calls. Every post in this pillar carries the energy of invitation, not urgency. "Come, there is room for you in this work."</p>
+        <div class="pillar-tags">
+          <span class="tag sage">Workshop Announcements</span>
+          <span class="tag sage">Camp Registration CTAs</span>
+          <span class="tag sage">Volunteer Invitations</span>
+          <span class="tag sage">School Partnership Calls</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAGE BIOS -->
+  <section class="section" id="bios">
+    <div class="section-eyebrow">05 · Platform Bios</div>
+    <div class="section-title">How We Present Ourselves</div>
+    <div class="section-lead">These bios establish SAFIER's presence on Instagram and Facebook — consistent in essence, adapted to each platform's character and character limits.</div>
+
+    <div class="bio-platform">
+      <div class="bio-platform-header">
+        <div class="platform-icon ig"><i class="ti ti-brand-instagram" aria-hidden="true"></i></div>
+        <div>
+          <div class="bio-platform-name">Instagram</div>
+          <div class="bio-platform-handle">@safier.integral.education (suggested handle)</div>
+        </div>
+      </div>
+      <div class="bio-text">🌿 Sri Aurobindo Foundation for Integral Education & Research
+Nurturing the whole child — body, mind & soul
+A unit of Sri Aurobindo Society, Puducherry 🪷
+Workshops · Children's Camps · School Programs
+✨ "There is a genius within every one of us." — The Mother
+🔗 Join the great adventure ↓</div>
+      <div class="bio-char-count">~230 characters · fits within 150-char limit if handle is short; trim emoji if needed</div>
+    </div>
+
+    <div class="bio-platform">
+      <div class="bio-platform-header">
+        <div class="platform-icon ig"><i class="ti ti-brand-instagram" aria-hidden="true"></i></div>
+        <div>
+          <div class="bio-platform-name">Instagram — Compact Version</div>
+          <div class="bio-platform-handle">For strict 150-character limit</div>
+        </div>
+      </div>
+      <div class="bio-text">🌿 Integral Education rooted in Sri Aurobindo & The Mother
+Workshops · Camps · Schools
+A unit of Sri Aurobindo Society, Puducherry 🪷</div>
+      <div class="bio-char-count">~145 characters · fits 150-char limit</div>
+    </div>
+
+    <div class="bio-platform">
+      <div class="bio-platform-header">
+        <div class="platform-icon fb"><i class="ti ti-brand-facebook" aria-hidden="true"></i></div>
+        <div>
+          <div class="bio-platform-name">Facebook Page</div>
+          <div class="bio-platform-handle">SAFIER — Sri Aurobindo Foundation for Integral Education & Research</div>
+        </div>
+      </div>
+      <div class="bio-text">SAFIER — Sri Aurobindo Foundation for Integral Education & Research — is a unit of the Sri Aurobindo Society, Puducherry, working to bring the transformative vision of Integral Education into schools, communities, and homes across India and the world.
+
+Rooted in the teachings of Sri Aurobindo and The Mother, we believe that true education nurtures the complete human being — physical, vital, mental, psychic, and spiritual.
+
+We offer:
+🌿 Annual Integral Education Workshops for educators & school leaders
+🌿 Children's Camps that awaken curiosity, creativity & inner awareness
+🌿 School implementation programs for conscious education
+
+"The education of a human being should begin at birth and continue throughout his life." — The Mother
+
+Join us in awakening the spirit of Integral Education. 
+📍 Sri Aurobindo Society, No. 11 St. Martin Street, Puducherry – 605 001
+🌐 safier.aurosociety.org</div>
+      <div class="bio-char-count">Facebook About section · ~700 characters · ideal length for discoverability</div>
+    </div>
+
+    <hr class="section-hr">
+    <h3 class="sub">Profile & Cover Photo Guidance</h3>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-label">Profile Photo — Both Platforms</div>
+        <div class="card-title">SAFIER Monogram / Logo</div>
+        <div class="card-body">Use the official SAFIER monogram on a warm ivory or saffron background. Ensure it reads clearly at small sizes (110×110px on Instagram). Avoid text-heavy logos at profile size.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Cover / Banner — Facebook</div>
+        <div class="card-title">Children in Nature + Tagline</div>
+        <div class="card-body">A warm, natural photograph from a camp or workshop — children engaged in an activity, or teachers in reflection. Overlay: "A new education for a new future · safier.aurosociety.org"</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KEYWORDS -->
+  <section class="section" id="keywords">
+    <div class="section-eyebrow">06 · Keywords for All Posts</div>
+    <div class="section-title">Words That Find Our People</div>
+    <div class="section-lead">Instead of hashtags, these keywords should be woven into every post caption — naturally, as part of the text. They improve discoverability while keeping content authentic. Group them by pillar below. 5–8 keywords per post, never pasted as a block.</div>
+
+    <h3 class="sub">Primary Keywords (use in nearly every post)</h3>
+    <div class="keyword-grid">
+      <span class="keyword primary">Integral Education</span>
+      <span class="keyword primary">Sri Aurobindo</span>
+      <span class="keyword primary">The Mother</span>
+      <span class="keyword primary">SAFIER</span>
+      <span class="keyword primary">Sri Aurobindo Society</span>
+      <span class="keyword primary">conscious education</span>
+      <span class="keyword primary">whole child development</span>
+      <span class="keyword primary">inner development</span>
+    </div>
+
+    <h3 class="sub">Pillar 1 — Wisdom Keywords</h3>
+    <div class="keyword-grid">
+      <span class="keyword secondary">integral yoga education</span>
+      <span class="keyword secondary">psychic education</span>
+      <span class="keyword secondary">education of the soul</span>
+      <span class="keyword secondary">five aspects of being</span>
+      <span class="keyword secondary">spiritual education India</span>
+      <span class="keyword secondary">conscious learning</span>
+      <span class="keyword secondary">Aurobindonian education</span>
+    </div>
+
+    <h3 class="sub">Pillar 2 — Educator Keywords</h3>
+    <div class="keyword-grid">
+      <span class="keyword sage">teacher transformation</span>
+      <span class="keyword sage">conscious teaching</span>
+      <span class="keyword sage">educator workshop India</span>
+      <span class="keyword sage">teaching with love</span>
+      <span class="keyword sage">mindful classroom</span>
+      <span class="keyword sage">teacher self-development</span>
+      <span class="keyword sage">integral teacher</span>
+    </div>
+
+    <h3 class="sub">Pillar 3 — Child & Camp Keywords</h3>
+    <div class="keyword-grid">
+      <span class="keyword gold">children's camp India</span>
+      <span class="keyword gold">child development holistic</span>
+      <span class="keyword gold">nature-based learning</span>
+      <span class="keyword gold">creative education</span>
+      <span class="keyword gold">learning through experience</span>
+      <span class="keyword gold">joyful learning</span>
+      <span class="keyword gold">inner potential child</span>
+    </div>
+
+    <h3 class="sub">Pillar 4 — Science of Living Keywords</h3>
+    <div class="keyword-grid">
+      <span class="keyword neutral">science of living</span>
+      <span class="keyword neutral">conscious parenting</span>
+      <span class="keyword neutral">mindful education</span>
+      <span class="keyword neutral">yoga for children</span>
+      <span class="keyword neutral">physical education integral</span>
+      <span class="keyword neutral">wellbeing in schools</span>
+    </div>
+
+    <h3 class="sub">Pillar 5 — Legacy Keywords</h3>
+    <div class="keyword-grid">
+      <span class="keyword primary">Sri Aurobindo writings</span>
+      <span class="keyword primary">The Mother Puducherry</span>
+      <span class="keyword primary">Integral Yoga</span>
+      <span class="keyword primary">Auroville education</span>
+      <span class="keyword primary">Sri Aurobindo Ashram</span>
+    </div>
+
+    <h3 class="sub">Pillar 6 — Community / CTA Keywords</h3>
+    <div class="keyword-grid">
+      <span class="keyword sage">IE Workshop 2026</span>
+      <span class="keyword sage">join SAFIER</span>
+      <span class="keyword sage">volunteer integral education</span>
+      <span class="keyword sage">education changemakers</span>
+      <span class="keyword sage">school transformation India</span>
+    </div>
+
+    <div class="quote-block" style="margin-top:28px;">
+      <p>Tip: Use keywords as natural phrases within your caption rather than a list at the end. Example: "At our Integral Education workshop last week, conscious educators from across India gathered in Puducherry to discover what Sri Aurobindo and The Mother envisioned for the whole child..."</p>
+      <cite>Caption Writing Guidance</cite>
+    </div>
+  </section>
+
+  <!-- CALENDAR -->
+  <section class="section" id="calendar">
+    <div class="section-eyebrow">07 · Social Media Calendar</div>
+    <div class="section-title">June – July 2026</div>
+    <div class="section-lead">8 posts per month: 4 Reels + 2 Static + 2 Carousels. Spread across weeks. Every post to include 5–8 embedded keywords. Post timing: Tuesday & Friday, 7–9am or 7–9pm IST for maximum reach.</div>
+
+    <div class="month-header">
+      <div class="month-badge">June 2026</div>
+      <div class="month-line"></div>
+    </div>
+
+    <div class="cal-post">
+      <div class="post-week"><div class="post-week-label">Wk</div><div class="post-week-num">1</div></div>
+      <div class="post-content">
+        <h4>Post 1 · "What is Integral Education?" — Launch Reel</h4>
+        <p>An energetic 60-second reel introducing SAFIER to new audiences. Mix of camp footage, workshop moments, The Mother's quote overlay, SAFIER's work in 3 shots. Voiceover: "Education that goes deeper than marks, beyond textbooks, into the soul of the child." End with website link.</p>
+        <div class="post-meta">
+          <span class="format-badge format-reel">Reel · 60s</span>
+          <span class="pillar-badge">Pillar 1 · Wisdom</span>
+          <div class="platform-pills"><span class="platform-pill">IG</span><span class="platform-pill">FB</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cal-post">
+      <div class="post-week"><div class="post-week-label">Wk</div><div class="post-week-num">1</div></div>
+      <div class="post-content">
+        <h4>Post 2 · The Mother Quote Static — "There is a genius within every one of us"</h4>
+        <p>Beautifully designed quote card. Warm saffron-ivory palette. Image of a child in wonder or nature detail in background. Caption explains what this means in the context of Integral Education — every child has an inner teacher waiting to be awakened.</p>
+        <div class="post-meta">
+          <span class="format-badge format-static">Static Graphic</span>
+          <span class="pillar-badge">Pillar 5 · Legacy</span>
+          <div class="platform-pills"><span class="platform-pill">IG</span><span class="platform-pill">FB</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cal-post">
+      <div class="post-week"><div class="post-week-label">Wk</div><div class="post-week-num">2</div></div>
+      <div class="post-content">
+        <h4>Post 3 · "A Day at the SAFIER Children's Camp" — Reel</h4>
+        <p>A warm, joyful reel showing a typical day at a Children's Camp — morning yoga, nature walks, art, group activities, reflection circles. No voiceover needed — let the visuals and ambient sound tell the story. Music: soft, Indian classical or instrumental. End with "Register for the next camp".</p>
+        <div class="post-meta">
+          <span class="format-badge format-reel">Reel · 45s</span>
+          <span class="pillar-badge">Pillar 3 · Awakened Child</span>
+          <div class="platform-pills"><span class="platform-pill">IG</span><span class="platform-pill">FB</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cal-post">
+      <div class="post-week"><div class="post-week-label">Wk</div><div class="post-week-num">2</div></div>
+      <div class="post-content">
+        <h4>Post 4 · "5 Dimensions of a Child" — Carousel (6 slides)</h4>
+        <p>Slide 1: Cover — "Integral Education sees the whole child." Slides 2–6: Physical, Vital, Mental, Psychic, Spiritual — each with a one-line description, an image, and a quote from The Mother or Sri Aurobindo. Slide 7: SAFIER logo + website. This carousel is a cornerstone educational piece to save and share.</p>
+        <div class="post-meta">
+          <span class="format-badge format-carousel">Carousel · 7 slides</span>
+          <span class="pillar-badge">Pillar 1 · Wisdom</span>
+          <div class="platform-pills"><span class="platform-pill">IG</span><span class="platform-pill">FB</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cal-post">
+      <div class="post-week"><div class="post-week-label">Wk</div><div class="post-week-num">3</div></div>
+      <div class="post-content">
+        <h4>Post 5 · Teacher Testimonial Video Reel — "I came with no expectations..."</h4>
+        <p>Short, genuine talking-head clip from Shruti Sahai or Uma Bholerao (existing testimonials on website) — trimmed to 30–45 seconds. Subtitled. Caption unpacks the transformation: what changed for this teacher after the IE workshop? Quote the participant's exact words in the caption.</p>
+        <div class="post-meta">
+          <span class="format-badge format-reel">Reel · 30–45s</span>
+          <span class="pillar-badge">Pillar 2 · Educator</span>
+          <div class="platform-pills"><span class="platform-pill">IG</span><span class="platform-pill">FB</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cal-post">
+      <div class="post-week"><div class="post-week-label">Wk</div><div class="post-week-num">3</div></div>
+      <div class="post-content">
+        <h4>Post 6 · "The Science of Living" Infographic Static</h4>
+        <p>Based on The Mother's concept — a clean, illustrated static post outlining 4 practices from "The Science of Living": conscious eating, right sleep, physical exercise as sadhana, and inner stillness. Each with a one-liner. Caption: "The Mother gave us a complete guide to living — not as rules, but as love."</p>
+        <div class="post-meta">
+          <span class="format-badge format-static">Static Graphic</span>
+          <span class="pillar-badge">Pillar 4 · Science of Living</span>
+          <div class="platform-pills"><span class="platform-pill">IG</span><span class="platform-pill">FB</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cal-post">
+      <div class="post-week"><div class="post-week-label">Wk</div><div class="post-week-num">4</div></div>
+      <div class="post-content">
+        <h4>Post 7 · "Who Was The Mother?" — Reel Mini-Documentary</h4>
+        <p>A 60-second reel that introduces The Mother to audiences unfamiliar with her — her arrival in Puducherry, her founding of the International Centre of Education, her vision for children. Use archival photos, text overlays, and a quiet narration. End: "Her vision lives on through Integral Education."</p>
+        <div class="post-meta">
+          <span class="format-badge format-reel">Reel · 60s</span>
+          <span class="pillar-badge">Pillar 5 · Legacy</span>
+          <div class="platform-pills"><span class="platform-pill">IG</span><span class="platform-pill">FB</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cal-post">
+      <div class="post-week"><div class="post-week-label">Wk</div><div class="post-week-num">4</div></div>
+      <div class="post-content">
+        <h4>Post 8 · Workshop Announcement Carousel — "Join Us: IE Workshop 2026"</h4>
+        <p>Slide 1: Event visual. Slide 2: What is this workshop? Slide 3: Who should attend (teachers, principals, education leaders). Slide 4: What you will experience. Slide 5: Testimonial quote. Slide 6: Registration details + link. Warm, inviting design — not a corporate flyer.</p>
+        <div class="post-meta">
+          <span class="format-badge format-carousel">Carousel · 6 slides</span>
+          <span class="pillar-badge">Pillar 6 · Join the Adventure</span>
+          <div class="platform-pills"><span class="platform-pill">IG</span><span class="platform-pill">FB</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="month-header">
+      <div class="month-badge">July 2026</div>
+      <div class="month-line"></div>
+    </div>
+
+    <div class="cal-post">
+      <div class="post-week"><div class="post-week-label">Wk</div><div class="post-week-num">1</div></div>
+      <div class="post-content">
+        <h4>Post 9 · "What Sri Aurobindo Said About Education" — Quote Reel</h4>
+        <p>A slow, contemplative reel — 4–5 quotes from Sri Aurobindo on education, appearing one by one over nature or archival imagery. Calming music. Caption: "Long before the world spoke of holistic education, Sri Aurobindo had mapped the complete science of human development." Link to IE publications page.</p>
+        <div class="post-meta">
+          <span class="format-badge format-reel">Reel · 45s</span>
+          <span class="pillar-badge">Pillar 5 · Legacy</span>
+          <div class="platform-pills"><span class="platform-pill">IG</span><span class="platform-pill">FB</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cal-post">
+      <div class="post-week"><div class="post-week-label">Wk</div><div class="post-week-num">1</div></div>
+      <div class="post-content">
+        <h4>Post 10 · "How a Conscious Educator Starts Their Day" — Static</h4>
+        <p>A warm, illustrated or photography-based static post showing a morning ritual for educators — silence, intention-setting, a moment of inner listening before class. Based on The Science of Living. Caption frames this as a daily practice any teacher can adopt. Shareable and saveable.</p>
+        <div class="post-meta">
+          <span class="format-badge format-static">Static Graphic</span>
+          <span class="pillar-badge">Pillar 2 · Educator</span>
+          <div class="platform-pills"><span class="platform-pill">IG</span><span class="platform-pill">FB</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cal-post">
+      <div class="post-week"><div class="post-week-label">Wk</div><div class="post-week-num">2</div></div>
+      <div class="post-content">
+        <h4>Post 11 · Yoga & Movement at the Camp — Reel</h4>
+        <p>Footage from camp yoga sessions — children doing asanas, group exercises, dance or free movement. Short, energetic, joyful. Music: upbeat Indian instrumental. Caption: "The body is the temple of the soul. At SAFIER camps, children learn to love and respect it." CTA: Next camp dates.</p>
+        <div class="post-meta">
+          <span class="format-badge format-reel">Reel · 30s</span>
+          <span class="pillar-badge">Pillar 3 · Awakened Child</span>
+          <div class="platform-pills"><span class="platform-pill">IG</span><span class="platform-pill">FB</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cal-post">
+      <div class="post-week"><div class="post-week-label">Wk</div><div class="post-week-num">2</div></div>
+      <div class="post-content">
+        <h4>Post 12 · "What Makes Integral Education Different?" — Carousel (5 slides)</h4>
+        <p>A bold educational carousel comparing conventional education vs. Integral Education — not to put down mainstream schools, but to illuminate the different assumptions. Slide covers: marks vs. consciousness, behaviour vs. inner development, subjects vs. the whole child. Save-worthy content for educators.</p>
+        <div class="post-meta">
+          <span class="format-badge format-carousel">Carousel · 5 slides</span>
+          <span class="pillar-badge">Pillar 1 · Wisdom</span>
+          <div class="platform-pills"><span class="platform-pill">IG</span><span class="platform-pill">FB</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cal-post">
+      <div class="post-week"><div class="post-week-label">Wk</div><div class="post-week-num">3</div></div>
+      <div class="post-content">
+        <h4>Post 13 · School Principal Testimonial — Reel</h4>
+        <p>Video clip from Uma Bholerao (Principal, Meghe Group, Nagpur) or C. Geetha (Vice-Principal, Auro Mirra, Bangalore) speaking to what the SAFIER workshop changed in how they lead their school. Subtitled. Caption speaks to trustees, board members, and school leaders specifically.</p>
+        <div class="post-meta">
+          <span class="format-badge format-reel">Reel · 45s</span>
+          <span class="pillar-badge">Pillar 2 · Educator</span>
+          <div class="platform-pills"><span class="platform-pill">IG</span><span class="platform-pill">FB</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cal-post">
+      <div class="post-week"><div class="post-week-label">Wk</div><div class="post-week-num">3</div></div>
+      <div class="post-content">
+        <h4>Post 14 · "Recommended Reading on Integral Education" — Static</h4>
+        <p>A curated list of 4–5 publications from the IE publications page — beautifully designed as a "reading list" static. Include titles from The Mother, Sri Aurobindo, and SAFIER-associated authors. Caption: "These books changed how we understand a child's potential. Where would you start?" Link to publications page.</p>
+        <div class="post-meta">
+          <span class="format-badge format-static">Static Graphic</span>
+          <span class="pillar-badge">Pillar 5 · Legacy</span>
+          <div class="platform-pills"><span class="platform-pill">IG</span><span class="platform-pill">FB</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cal-post">
+      <div class="post-week"><div class="post-week-label">Wk</div><div class="post-week-num">4</div></div>
+      <div class="post-content">
+        <h4>Post 15 · "For Parents: Questions to Ask Your Child's School" — Carousel</h4>
+        <p>A practical, shareable carousel for parents — 6 questions to gauge whether a school nurtures the whole child, based on IE principles. Framed helpfully, not critically. Parents will save and share this. Caption: "If education is about developing the complete human being, these questions matter."</p>
+        <div class="post-meta">
+          <span class="format-badge format-carousel">Carousel · 6 slides</span>
+          <span class="pillar-badge">Pillar 4 · Science of Living</span>
+          <div class="platform-pills"><span class="platform-pill">IG</span><span class="platform-pill">FB</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cal-post">
+      <div class="post-week"><div class="post-week-label">Wk</div><div class="post-week-num">4</div></div>
+      <div class="post-content">
+        <h4>Post 16 · "Volunteer with SAFIER" — Reel + Community CTA</h4>
+        <p>An inviting, personal reel that shows volunteers at camps — setting up activities, guiding children, sharing meals. One volunteer speaks to camera for 10–15 seconds. Caption: "We are looking for people who believe education can be something beautiful. Can you be part of this?" Link to volunteer page.</p>
+        <div class="post-meta">
+          <span class="format-badge format-reel">Reel · 45s</span>
+          <span class="pillar-badge">Pillar 6 · Join the Adventure</span>
+          <div class="platform-pills"><span class="platform-pill">IG</span><span class="platform-pill">FB</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESOURCES -->
+  <section class="section" id="resources">
+    <div class="section-eyebrow">08 · Content Resources</div>
+    <div class="section-title">Raw Material for Great Content</div>
+    <div class="section-lead">SAFIER has an unusually rich set of authentic content resources — far more than most organisations at this stage. The key is curation, not creation. Here is how to unlock each resource.</div>
+
+    <div class="resource-grid">
+      <div class="resource-item"><i class="ti ti-world" aria-hidden="true"></i><div><strong>Website Content</strong><br>All pages of safier.aurosociety.org — vision, mission, IE explainers, glossary, team, events. Mine for carousel text, reel scripts, and caption copy.</div></div>
+      <div class="resource-item"><i class="ti ti-brand-youtube" aria-hidden="true"></i><div><strong>Integral Education Intro Video</strong><br>youtube.com/watch?v=3YTpQ1ZvVfQ — clip, subtitle, repurpose into Reels. This alone is 3–4 posts worth of content.</div></div>
+      <div class="resource-item"><i class="ti ti-microphone" aria-hidden="true"></i><div><strong>Talks by IE Practitioners</strong><br>Record and clip audio/video of integral education practitioners. 60-second clips with text overlay = highest-performing Reels.</div></div>
+      <div class="resource-item"><i class="ti ti-book" aria-hidden="true"></i><div><strong>Books of The Mother & Sri Aurobindo</strong><br>"The Science of Living", "On Education", "A Dream of Integral Education" — pull quotes and concepts for graphics and carousels.</div></div>
+      <div class="resource-item"><i class="ti ti-message-quote" aria-hidden="true"></i><div><strong>Camp & Workshop Testimonials</strong><br>Shruti Sahai, Uma Bholerao, C. Geetha — 3 powerful testimonials already on the website. Record video versions for Reels.</div></div>
+      <div class="resource-item"><i class="ti ti-video" aria-hidden="true"></i><div><strong>Events & Camp Videos</strong><br>All existing footage of activities, yoga sessions, nature walks, art, and group activities. Edit into 30–60 second Reels with music.</div></div>
+      <div class="resource-item"><i class="ti ti-books" aria-hidden="true"></i><div><strong>IE Publications Page</strong><br>safier.aurosociety.org/ie-publications — create a reading list post, book review carousels, and educational graphics from listed titles.</div></div>
+      <div class="resource-item"><i class="ti ti-history" aria-hidden="true"></i><div><strong>History of IE by The Mother</strong><br>The founding story of the Sri Aurobindo International Centre of Education — rich material for legacy content and mini-documentary Reels.</div></div>
+    </div>
+
+    <hr class="section-hr">
+    <h3 class="sub">Content Production Priorities</h3>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-label">Immediate (Week 1)</div>
+        <div class="card-title">Audit existing video footage</div>
+        <div class="card-body">Collect all camp and workshop videos. Sort into: testimonials, activity footage, speaker talks, nature moments. These are your core Reels raw material.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Month 1</div>
+        <div class="card-title">Record 3 new testimonials</div>
+        <div class="card-body">Reach out to past participants — teachers and camp alumni — for a 60-second video testimonial on phone. Authentic, slightly imperfect is better than polished and corporate.</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Ongoing</div>
+        <div class="card-title">The Mother's quote graphics</div>
+        <div class="card-body">Create a bank of 20 quote graphics from The Mother and Sri Aurobindo on education. Use these as the backbone of static content throughout the 2 months.</div>
+      </div>
+    </div>
+
+    <div class="quote-block" style="margin-top:32px;">
+      <p>"I invite you to the great adventure."</p>
+      <cite>— The Mother · Let this be the spirit behind every post SAFIER publishes.</cite>
+    </div>
+  </section>
+</div>
+
+<script>
+function show(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const tabs = document.querySelectorAll('.nav-tab');
+  const map = {brand:0,story:1,audience:2,pillars:3,bios:4,keywords:5,calendar:6,resources:7};
+  tabs[map[id]].classList.add('active');
+}
+</script>
